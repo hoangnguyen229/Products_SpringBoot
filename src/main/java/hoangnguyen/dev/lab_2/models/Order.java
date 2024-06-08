@@ -1,6 +1,7 @@
 package hoangnguyen.dev.lab_2.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,7 +20,23 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank
     private String customerName;
+
+    @NotBlank
+    private String address;
+
+    @NotBlank
+    private String email;
+
+    @NotBlank
+    private String note;
+
+    @NotBlank
+    private String phone;
+
+    @NotBlank
+    private String paymentMethod;
 
     @OneToMany(mappedBy = "order")
     private List<OrderDetail> orderDetails;
