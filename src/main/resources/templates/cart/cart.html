@@ -9,7 +9,7 @@
 </head>
 <body>
 <header th:replace="fragments/header.html"></header>
-<section layout:fragment="content" class="container mt-3">
+<section th:fragment="content" class="container mt-3">
     <h1>Your Cart</h1>
     <div th:if="${cartItems.isEmpty()}" class="alert alert-info">Your cart is
         empty.</div>

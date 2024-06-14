@@ -9,7 +9,7 @@
 </head>
 <body>
 <header th:replace="fragments/header.html"></header>
-<section layout:fragment="content">
+<section th:fragment="content">
     <h1>Categories List</h1>
     <div>
         <a th:href="@{/categories/add}" class="btn btn-primary mb-3">Add New
