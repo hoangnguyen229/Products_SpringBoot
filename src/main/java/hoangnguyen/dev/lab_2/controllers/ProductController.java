@@ -3,8 +3,10 @@ package hoangnguyen.dev.lab_2.controllers;
 import hoangnguyen.dev.lab_2.models.Product;
 import hoangnguyen.dev.lab_2.services.CategoryService;
 import hoangnguyen.dev.lab_2.services.ProductService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -67,5 +69,13 @@ public class ProductController {
     public String deleteProduct(@PathVariable Long id) {
         productService.deleteProductById(id);
         return "redirect:/products";
+    }
+
+    @GetMapping("/manage")
+    public String manageProduct(HttpServletRequest request, Model model) {
+        CsrfToken csrf = (CsrfToken) request.getAttribute(CsrfToken.class.getName());
+        model.addAttribute("csrfToken", csrf.getToken());
+        model.addAttribute("_csrfHeader", csrf.getHeaderName());
+        return "/products/product-api";
     }
 }
