@@ -38,6 +38,10 @@ public class CartService {
         cartItems.clear();
     }
 
-
-
+    public void updateQuantity(Long productId, int quantity) {
+        cartItems.stream()
+                .filter(item -> item.getProduct().getId().equals(productId))
+                .findFirst()
+                .ifPresent(item -> item.setQuantity(quantity));
+    }
 }
