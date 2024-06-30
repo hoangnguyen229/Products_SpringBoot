@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -38,6 +39,12 @@ public class Order {
     @NotBlank
     private String paymentMethod;
 
+    private LocalDateTime orderDate;
+
     @OneToMany(mappedBy = "order")
     private List<OrderDetail> orderDetails;
+
+    public double getTotalPrice() {
+        return orderDetails.stream().mapToDouble(OrderDetail::getTotalPrice).sum();
+    }
 }

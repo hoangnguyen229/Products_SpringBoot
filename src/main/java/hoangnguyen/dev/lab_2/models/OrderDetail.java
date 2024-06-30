@@ -27,4 +27,7 @@ public class OrderDetail {
     @JoinColumn(name = "order_id")
     private Order order;
 
+    public double getTotalPrice(){
+        return product.getPrice() * quantity;
+    }
 }

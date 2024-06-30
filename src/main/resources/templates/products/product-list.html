@@ -11,6 +11,12 @@
 <header th:replace="fragments/header.html"></header>
 <section th:fragment="content">
     <h1>Products List</h1>
+    <form th:action="@{/products}" method="get" class="d-flex mb-3">
+        <input type="text" name="search" class="form-control me-2" placeholder="Search products by name" th:value="${param.search}">
+        <input type="number" name="minPrice" class="form-control me-2" placeholder="Min price" th:value="${param.minPrice}">
+        <input type="number" name="maxPrice" class="form-control me-2" placeholder="Max price" th:value="${param.maxPrice}">
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
     <table class="table table-bordered table-hover">
         <thead class="table-dark">
         <tr>
@@ -53,6 +59,6 @@
         </tbody>
     </table>
 </section>
-<footer th:replace="fragments/footer.html"></footer>
+<!--<footer th:replace="fragments/footer.html"></footer>-->
 </body>
 </html>

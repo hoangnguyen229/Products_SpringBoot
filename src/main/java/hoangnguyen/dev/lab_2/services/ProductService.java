@@ -42,4 +42,8 @@ public class ProductService {
         }
         productRepository.deleteById(id);
     }
+
+    public List<Product> searchProducts(String name, Double minPrice, Double maxPrice) {
+        return productRepository.findByNameAndPriceRange(name, minPrice, maxPrice);
+    }
 }

@@ -1,14 +1,14 @@
 package hoangnguyen.dev.lab_2.controllers;
 
 import hoangnguyen.dev.lab_2.models.CartItem;
+import hoangnguyen.dev.lab_2.models.Order;
 import hoangnguyen.dev.lab_2.services.CartService;
 import hoangnguyen.dev.lab_2.services.OrderService;
+import hoangnguyen.dev.lab_2.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,6 +19,12 @@ public class OrderController {
     private OrderService orderService;
     @Autowired
     private CartService cartService;
+
+    @GetMapping
+    public String getAllOrders(Model model){
+        model.addAttribute("orders",orderService.getAllOrders());
+        return "/order/order-list";
+    }
     @GetMapping("/checkout")
     public String checkout() {
         return "/cart/checkout";
@@ -36,5 +42,11 @@ public class OrderController {
     public String orderConfirmation(Model model) {
         model.addAttribute("message", "Your order has been successfully placed.");
         return "cart/order-confirmation";
+    }
+    @GetMapping("/details/{orderId}")
+    public String showOrderDetails(@PathVariable Long orderId, Model model) {
+        Order order = orderService.getOrderById(orderId);
+        model.addAttribute("order", order);
+        return "order/order-detail";
     }
 }

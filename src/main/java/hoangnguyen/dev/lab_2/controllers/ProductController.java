@@ -10,10 +10,9 @@ import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/products")
@@ -23,8 +22,12 @@ public class ProductController {
     @Autowired
     private CategoryService categoryService;
     @GetMapping
-    public String showProductList(Model model) {
-        model.addAttribute("products", productService.getAllProducts());
+    public String showProductList(Model model,
+                                  @RequestParam(required = false) String search,
+                                      @RequestParam(required = false) Double minPrice,
+                                  @RequestParam(required = false) Double maxPrice) {
+        List<Product> products = productService.searchProducts(search, minPrice, maxPrice);
+        model.addAttribute("products", products);
         return "/products/product-list";
     }
     // For adding a new product

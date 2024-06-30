@@ -3,6 +3,7 @@ package hoangnguyen.dev.lab_2.services;
 import hoangnguyen.dev.lab_2.models.CartItem;
 import hoangnguyen.dev.lab_2.models.Order;
 import hoangnguyen.dev.lab_2.models.OrderDetail;
+import hoangnguyen.dev.lab_2.models.Product;
 import hoangnguyen.dev.lab_2.repositories.OrderDetailRepository;
 import hoangnguyen.dev.lab_2.repositories.OrderRepository;
 import jakarta.transaction.Transactional;
@@ -49,5 +50,12 @@ public class OrderService {
         // Optionally clear the cart after order placement
         cartService.clearCart();
         return order;
+    }
+    public List<Order> getAllOrders() {
+        return orderRepository.findAll();
+    }
+
+    public Order getOrderById(Long id) {
+        return orderRepository.findById(id).orElse(null);
     }
 }
